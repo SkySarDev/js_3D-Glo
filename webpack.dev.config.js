@@ -1,5 +1,7 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
     entry: './src/index.js',
@@ -8,9 +10,13 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HTMLWebpackPlugin({
             template: path.resolve(__dirname, "./index.html"),
             filename: "index.html",
+        }),
+        new MiniCssExtractPlugin({
+            filename: './css/style.css',
         }),],
     module: {
         rules: [
@@ -27,6 +33,29 @@ module.exports = {
             {
                 test: /\.html$/,
                 loader: "html-loader",
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    "css-loader",
+                ],
+            },
+            {
+                test: /\.(?:gif|png|jpg|jpeg|svg)$/i,
+                type: "asset/resource",
+                generator: {
+                    filename: "[path][name][ext]",
+                },
+            },
+            {
+                test: /\.(woff(2)?|eot|ttf|otf)$/,
+                type: "asset/resource",
+                generator: {
+                    filename: "./fonts/[name][ext]",
+                },
             },
         ],
     },
