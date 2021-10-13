@@ -3,7 +3,7 @@
 3D Modeling Services, interior and exterior design.
 
 ### **Demo**
-https://skysar.site/3d-glo/
+https://skysar.site/demo/3d-glo/
 
 ### **Commands**
 
